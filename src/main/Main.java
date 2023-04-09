@@ -18,29 +18,10 @@ public class Main {
 //        List_and_Iterators_Practice2_1(); //4주차 실습 2-1
 //        System.out.println("-------------------");
 //        List_and_Iterators_Practice2_2(); //4주차 실습 2-2
-        Trees_3();
+        Trees_4_1();
     }
 
-    private static void List_and_Iterators_Practice2_1(){
-        MyStack stack = new MyStack();
-        for (int i =1; i<11; i ++){
-            stack.push(i);
-        }
-        for (int i = 0; i < 10; i++) {
-            System.out.println(stack.pop());
-        }
-    }
-
-    private static void List_and_Iterators_Practice2_2(){
-        MyQueue queue = new MyQueue();
-        for (int i =1; i<11; i ++){
-            queue.enqueue(i);
-        }
-        for (int i = 0; i < 10; i++) {
-            System.out.println(queue.dequeue());
-        }
-    }
-
+    //5주차 실습 3번 코드
     private static void Trees_3(){
         MyTree tree = new MyTree();
 
@@ -82,6 +63,59 @@ public class Main {
         System.out.println();
 
         System.out.printf("* Tree size = Total %d Nodes",tree.size());
+    }
+
+    //5주차 실습 4번코드
+    private static void Trees_4_1(){
+        MyTree tree = new MyTree();
+
+        MyNode root = tree.addRoot("Make Money Fast!");
+
+        //depth 1
+        MyNode node2 = tree.addChild(root, "1. Motivation");
+        MyNode node3 = tree.addChild(root, "2. Methods");
+        MyNode node4 = tree.addChild(root, "3. References");
+
+        //depth2
+        tree.addChild(node2, "1.1 Greed");
+        tree.addChild(node2,"1.2 Greed");
+        tree.addChild(node3, "2.1 Stock Fraud");
+        tree.addChild(node3, "2.2 Ponzi Scheme");
+        tree.addChild(node3, "2.3 Bank Robbery");
+
+        preOrder(tree,root,0);
+    }
+
+    private static void preOrder(MyTree tree, MyNode node, int depth) {
+        for (int i =0; i<depth; i++) {
+            System.out.printf(" ");     //depth 만큼 들여쓰기
+        }
+        System.out.println(node.element());
+        if(!tree.isExternal(node)){
+            for (int i =0; i<node.children().size(); i++){
+                preOrder(tree, (MyNode) node.children().get(i),depth+1);
+            }
+        }
+    }
+
+    private static void List_and_Iterators_Practice2_1(){
+        MyStack stack = new MyStack();
+        for (int i =1; i<11; i ++){
+            stack.push(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println(stack.pop());
+        }
+    }
+
+    private static void List_and_Iterators_Practice2_2(){
+        MyQueue queue = new MyQueue();
+        for (int i =1; i<11; i ++){
+            queue.enqueue(i);
+        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println(queue.dequeue());
+        }
     }
 //    //3주차 실습 2 실행코드
 //    private static void Stack_Queue_practice2() {
