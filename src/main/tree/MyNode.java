@@ -13,8 +13,8 @@ public class MyNode {
         children = null;
     }
 
-    public MyNode(Object element) {
-        this.element = element;
+    public MyNode(Object e) {
+        this.element = e;
     }
 
     public Object element() {
