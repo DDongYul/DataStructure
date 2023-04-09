@@ -19,6 +19,8 @@ public class Main {
 //        System.out.println("-------------------");
 //        List_and_Iterators_Practice2_2(); //4주차 실습 2-2
         Trees_4_1();
+        System.out.println("-------------------");
+        Trees_4_2();
     }
 
     //5주차 실습 3번 코드
@@ -95,6 +97,41 @@ public class Main {
             for (int i =0; i<node.children().size(); i++){
                 preOrder(tree, (MyNode) node.children().get(i),depth+1);
             }
+        }
+    }
+
+    private static void Trees_4_2(){
+
+        MyTree tree = new MyTree();
+
+        MyNode root = tree.addRoot("cs16/");
+
+        //depth 1
+        MyNode node2 = tree.addChild(root, "homeworks/");
+        MyNode node3 = tree.addChild(root, "programs/");
+        MyNode node4 = tree.addChild(root, "todo.txt(1K)");
+
+        //depth2
+        tree.addChild(node2, "h1c.doc(3K)");
+        tree.addChild(node2,"h1nc.doc(2K)");
+        tree.addChild(node3, "DDR.java(10K)");
+        tree.addChild(node3, "Stocks.java(25K)");
+        tree.addChild(node3, "Robot.java(20K)");
+
+        postOrder(tree,root);
+    }
+
+    private static int postOrder(MyTree tree, MyNode node) {
+        if(node.element().toString().endsWith("/")){
+            int size = 0;
+            for(int i = 0; i<node.children().size(); i++){
+                size+= postOrder(tree,(MyNode) node.children().get(i));
+            }
+            System.out.println(node.element().toString() +" = "+size + "KB");
+            return size;
+        }
+        else{
+            return Integer.valueOf(node.element().toString().split("\\(")[1].split("K")[0]);
         }
     }
 
