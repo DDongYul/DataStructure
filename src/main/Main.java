@@ -5,16 +5,19 @@ import main.list.MyQueue;
 import main.list.MyStack;
 import main.queue.StackQueue;
 import main.stack.ArrayStack;
+import main.tree.MyNode;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 //        Stack_Queue_practice2();    //3주차 실습 2 실행
 //        Stack_Queue_practice3();    //3주차 실습 3 실행
-        List_and_Iterators_Practice2_1(); //4주차 실습 2-1
-        System.out.println("-------------------");
-        List_and_Iterators_Practice2_2(); //4주차 실습 2-2
+//        List_and_Iterators_Practice2_1(); //4주차 실습 2-1
+//        System.out.println("-------------------");
+//        List_and_Iterators_Practice2_2(); //4주차 실습 2-2
+        Trees_1();
     }
 
     private static void List_and_Iterators_Practice2_1(){
@@ -37,7 +40,15 @@ public class Main {
         }
     }
 
+    private static void Trees_1(){
+        MyNode myNode = new MyNode();
+        MyNode myNode1 = new MyNode();
 
+        ArrayList<MyNode> arrayList = new ArrayList<>();
+        arrayList.add(myNode1);
+        myNode.setChildren(arrayList);
+        System.out.println(myNode.children().get(0));
+    }
 //    //3주차 실습 2 실행코드
 //    private static void Stack_Queue_practice2() {
 //        ArrayStack arrayStack = new ArrayStack();

@@ -18,31 +18,31 @@ public class MyNode {
     }
 
     public Object element() {
-
+        return element;
     }
 
     public MyNode parent() {
-
+        return parent;
     }
 
     public ArrayList children() {
-
+        return children;
     }
 
     public int degree() {
-
+        return children.size();
     }
 
     public void setElement(Object e) {
-
+        element = e;
     }
 
     public void setParent(MyNode p) {
-
+        parent = p;
     }
 
     public void setChildren(ArrayList c) {
-
+        children = c;
     }
 
 }
