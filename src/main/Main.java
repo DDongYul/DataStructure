@@ -26,18 +26,19 @@ public class Main {
 //        Trees_4_1();
 //        System.out.println("-------------------");
 //        Trees_4_2();
-        Trees2_1();
+        Trees2_1(); //6주차 실습
     }
 
+    //6주차 실습
     private static void Trees2_1() {
         //3-1번
         MyBinTree binTree = new MyBinTree();
 
-        MyBinNode binNode1 = binTree.addRoot('+');
-        MyBinNode binNode2 =binTree.addNode('*');
-        MyBinNode binNode3 =binTree.addNode('*');
+        MyBinNode binNode1 = binTree.addRoot("+");
+        MyBinNode binNode2 =binTree.addNode("*");
+        MyBinNode binNode3 =binTree.addNode("*");
         MyBinNode binNode4 =binTree.addNode(2);
-        MyBinNode binNode5 =binTree.addNode('-');
+        MyBinNode binNode5 =binTree.addNode("-");
         MyBinNode binNode6 =binTree.addNode(3);
         MyBinNode binNode7 =binTree.addNode(2);
         MyBinNode binNode10 =binTree.addNode(3);
@@ -54,6 +55,10 @@ public class Main {
 
         //3-2번
         inOrder(binTree,binNode1);
+        //3-3번
+        System.out.println();
+        System.out.print("= ");
+        System.out.print(postOrder(binTree,binNode1));
     }
 
     private static void inOrder(MyBinTree tree, MyBinNode node){
@@ -82,22 +87,32 @@ public class Main {
         }
     }
 
-
-
-    private static void preOrder2(MyBinTree tree, MyBinNode node, int depth) {
-        for (int i =0; i<depth; i++) {
-            System.out.printf(" ");     //depth 만큼 들여쓰기
-        }
-        System.out.println(node.element());
+    private static int postOrder(MyBinTree tree, MyBinNode node) {
         if(!tree.isExternal(node)){
-            for (int i =0; i<node.children().size(); i++){
-                if (node.children().get(i) == null){
-                    continue;
+            if (tree.hasLeft(node) && tree.hasRight(node)) {
+                int left = postOrder(tree, node.left());
+                int right = postOrder(tree,node.right());
+
+                if (node.element() == "+"){
+                    return left + right;
                 }
-                preOrder2(tree, (MyBinNode) node.children().get(i),depth+1);
+                else if(node.element() == "-"){
+                    return left - right;
+                }
+                else if(node.element() == "*"){
+                    return left * right;
+                }
+                else{
+                    return left / right;
+                }
             }
         }
+        else{
+            return (int)(node.element());
+        }
+        return 0;
     }
+
     //5주차 실습 3번 코드
     private static void Trees_3(){
         MyTree tree = new MyTree();
@@ -175,6 +190,7 @@ public class Main {
         }
     }
 
+    //4주차 실습
     private static void Trees_4_2(){
 
         MyTree tree = new MyTree();
