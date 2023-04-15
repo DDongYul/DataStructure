@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class MyTree {
 
-    private int size;
+    protected int size;
     private MyNode root;
 
     public MyTree() {

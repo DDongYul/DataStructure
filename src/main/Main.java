@@ -5,6 +5,8 @@ import main.list.MyQueue;
 import main.list.MyStack;
 import main.queue.StackQueue;
 import main.stack.ArrayStack;
+import main.tree.MyBinNode;
+import main.tree.MyBinTree;
 import main.tree.MyNode;
 import main.tree.MyTree;
 
@@ -18,11 +20,84 @@ public class Main {
 //        List_and_Iterators_Practice2_1(); //4주차 실습 2-1
 //        System.out.println("-------------------");
 //        List_and_Iterators_Practice2_2(); //4주차 실습 2-2
-        Trees_4_1();
-        System.out.println("-------------------");
-        Trees_4_2();
+//        Trees_3();
+//        System.out.println();
+//        System.out.println("-------------------");
+//        Trees_4_1();
+//        System.out.println("-------------------");
+//        Trees_4_2();
+        Trees2_1();
     }
 
+    private static void Trees2_1() {
+        //3-1번
+        MyBinTree binTree = new MyBinTree();
+
+        MyBinNode binNode1 = binTree.addRoot('+');
+        MyBinNode binNode2 =binTree.addNode('*');
+        MyBinNode binNode3 =binTree.addNode('*');
+        MyBinNode binNode4 =binTree.addNode(2);
+        MyBinNode binNode5 =binTree.addNode('-');
+        MyBinNode binNode6 =binTree.addNode(3);
+        MyBinNode binNode7 =binTree.addNode(2);
+        MyBinNode binNode10 =binTree.addNode(3);
+        MyBinNode binNode11 =binTree.addNode(1);
+
+        binNode1.setLeft(binNode2);
+        binNode1.setRight(binNode3);
+        binNode2.setLeft(binNode4);
+        binNode2.setRight(binNode5);
+        binNode3.setLeft(binNode6);
+        binNode3.setRight(binNode7);
+        binNode5.setLeft(binNode10);
+        binNode5.setRight(binNode11);
+
+        //3-2번
+        inOrder(binTree,binNode1);
+    }
+
+    private static void inOrder(MyBinTree tree, MyBinNode node){
+        if(!tree.isExternal(node)){
+            System.out.print("(");
+            if (tree.hasLeft(node)) {
+                inOrder(tree, node.left());
+                System.out.print(node.element());
+                if (tree.hasRight(node)) {
+                    inOrder(tree,node.right());
+                }
+            }
+            else{
+                System.out.print(node.element());
+                inOrder(tree,node.right());
+            }
+            System.out.print(")");
+        }
+        else{
+            if (node == tree.parent(node).left()) {
+                System.out.print(node.element());
+            }
+            else{
+                System.out.print(node.element());
+            }
+        }
+    }
+
+
+
+    private static void preOrder2(MyBinTree tree, MyBinNode node, int depth) {
+        for (int i =0; i<depth; i++) {
+            System.out.printf(" ");     //depth 만큼 들여쓰기
+        }
+        System.out.println(node.element());
+        if(!tree.isExternal(node)){
+            for (int i =0; i<node.children().size(); i++){
+                if (node.children().get(i) == null){
+                    continue;
+                }
+                preOrder2(tree, (MyBinNode) node.children().get(i),depth+1);
+            }
+        }
+    }
     //5주차 실습 3번 코드
     private static void Trees_3(){
         MyTree tree = new MyTree();

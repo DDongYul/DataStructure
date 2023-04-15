@@ -1,6 +1,7 @@
 package main.tree;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyBinNode extends MyNode {
 
@@ -12,54 +13,53 @@ public class MyBinNode extends MyNode {
         super(e);
     }
 
-    @Override
-    public Object element() {
-        return super.element();
-    }
-
-    @Override
-    public MyNode parent() {
-        return super.parent();
-    }
-
-    @Override
-    public ArrayList children() {
-        return super.children();
-    }
-
-    @Override
-    public int degree() {
-        return super.degree();
-    }
-
-    @Override
-    public void setElement(Object e) {
-        super.setElement(e);
-    }
-
-    @Override
-    public void setParent(MyNode p) {
-        super.setParent(p);
-    }
-
-    @Override
-    public void setChildren(ArrayList c) {
-        super.setChildren(c);
-    }
-
     public MyBinNode left() {
-        return (MyBinNode) children().get(0);
+        if (children() == null){
+            return null;
+        }
+        else {
+            return (MyBinNode) children().get(0);
+        }
     }
 
     public MyBinNode right() {
-        return (MyBinNode) children().get(1);
+        if (children() == null || children().size()==1){
+            return null;
+        }
+        else {
+            return (MyBinNode) children().get(1);
+        }
     }
 
     public void setLeft(MyBinNode v) {
-        v.children().add(0,v);
+        if (this.children() == null){
+            ArrayList<MyBinNode> arrayList = new ArrayList<>();
+            arrayList.add(0,v);
+            this.setChildren(arrayList);
+        }else{
+            this.children().set(0,v);
+        }
+        if (v != null){
+            v.setParent(this);
+        }
     }
 
     public void setRight(MyBinNode v) {
-        v.children().add(1,v);
+        if (this.children() == null){
+            ArrayList<MyBinNode> arrayList = new ArrayList<>();
+            arrayList.add(0,null);
+            arrayList.add(1,v);
+            this.setChildren(arrayList);
+        }else{
+            if (children().size()>=2) {
+                this.children().set(1, v);
+            }
+            else{
+                this.children().add(1,v);
+            }
+        }
+        if (v != null){
+            v.setParent(this);
+        }
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class MyNode {
     private Object element;
-    private MyNode parent;
+    protected MyNode parent;
     private ArrayList children;
 
     public MyNode(){
