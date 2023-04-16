@@ -136,7 +136,15 @@ public class MyBinTree extends MyTree {
 
     //v노드 왼쪽 오른쪽 자식으로 각각 t1,t2 삽입 이떄 v노드에 자식이 차있으면 예외
     public void attach(MyBinNode v, MyBinNode t1, MyBinNode t2) throws NotExternalException {
-
+        if(!isExternal(v)){
+            throw new NotExternalException("external 노드가 아닙니다.");
+        }
+        else {
+            v.setLeft(t1);
+            v.setRight(t2);
+            t1.setParent(v);
+            t2.setParent(v);
+        }
     }
 
 }
