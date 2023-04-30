@@ -1,21 +1,14 @@
 package main;
 
-import main.list.MyArrayList;
 import main.list.MyQueue;
 import main.list.MyStack;
-import main.pq.IntComparator;
-import main.pq.MyEntry;
-import main.pq.MyPQ;
-import main.queue.StackQueue;
-import main.stack.ArrayStack;
+import main.pq.*;
 import main.tree.MyBinNode;
 import main.tree.MyBinTree;
 import main.tree.MyNode;
 import main.tree.MyTree;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,8 +23,9 @@ public class Main {
 //        Trees_4_1();
 //        System.out.println("-------------------");
 //        Trees_4_2();
-//        Trees2_1(); //6주차 실습
+////        Trees2_1(); //6주차 실습
         PQ1_2();
+        PQ2();
     }
 
     //8주차 실습 1-2
@@ -45,6 +39,57 @@ public class Main {
         System.out.println((Integer) pq.removeMin().getKey());
         System.out.println((Integer) pq.removeMin().getKey());
     }
+
+    //8주차 실습 2
+    private static void PQ2() {
+        //2-1
+        PointComparator c = new PointComparator();
+        MyPQ pq = new MyPQ(c);
+
+        pq.insert(new Point(5, 4), 'a');
+        pq.insert(new Point(2, 7), 'b');
+        pq.insert(new Point(9, 5), 'c');
+        pq.insert(new Point(3, 1), 'd');
+        pq.insert(new Point(7, 2), 'e');
+        pq.insert(new Point(9, 7), 'f');
+        pq.insert(new Point(1, 4), 'g');
+        pq.insert(new Point(4, 3), 'h');
+        pq.insert(new Point(8, 2), 'i');
+        pq.insert(new Point(4, 8), 'j');
+
+        System.out.println("[가까운 순서]");
+        printPoint(pq);
+
+        //2-2
+        PointComparator2 c2 = new PointComparator2();
+        MyPQ pq2 = new MyPQ(c2);
+
+        pq2.insert(new Point(5, 4), 'a');
+        pq2.insert(new Point(2, 7), 'b');
+        pq2.insert(new Point(9, 5), 'c');
+        pq2.insert(new Point(3, 1), 'd');
+        pq2.insert(new Point(7, 2), 'e');
+        pq2.insert(new Point(9, 7), 'f');
+        pq2.insert(new Point(1, 4), 'g');
+        pq2.insert(new Point(4, 3), 'h');
+        pq2.insert(new Point(8, 2), 'i');
+        pq2.insert(new Point(4, 8), 'j');
+
+        System.out.println();
+        System.out.println("[멀리 있는 순서]");
+        printPoint(pq2);
+
+    }
+
+    private static void printPoint(MyPQ pq) {
+        while (!pq.isEmpty()) {
+            System.out.print(pq.min().getValue());
+            Point p1 = (Point) pq.removeMin().getKey();
+            System.out.printf(" (%d, %d)", p1.x, p1.y);
+            System.out.println();
+        }
+    }
+
 
     //6주차 실습
     private static void Trees2_1() {

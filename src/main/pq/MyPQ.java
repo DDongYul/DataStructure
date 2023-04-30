@@ -5,28 +5,25 @@ import java.util.Comparator;
 
 public class MyPQ {
 
-    private int size;
     private ArrayList<MyEntry> pq;
     private Comparator<Object> comparator;
 
     public MyPQ(Comparator comp) {
         pq = new ArrayList<>();
         comparator = comp;
-        size=0;
     }
 
-//    public MyPQ(int initialCapacity, Comparator comp) {
-//        size=initialCapacity;
-//        comparator = comp;
-//        pq = new ArrayList<>();
-//    }
+    public MyPQ(int initialCapacity, Comparator comp) {
+        comparator = comp;
+        pq = new ArrayList<>();
+    }
 
     public int size() {
-        return size;
+        return pq.size();
     }
 
     public boolean isEmpty() {
-        return size==0;
+        return size()==0;
     }
 
     public MyEntry insert(Object k, Object v) {
@@ -42,10 +39,13 @@ public class MyPQ {
                     break;
                 } else {
                     idx++;
+                    if(idx==pq.size()){
+                        pq.add(insertEntry);
+                        break;
+                    }
                 }
             }
         }
-        size++;
         return insertEntry;
     }
 
