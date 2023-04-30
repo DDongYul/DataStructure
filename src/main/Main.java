@@ -3,6 +3,7 @@ package main;
 import main.list.MyArrayList;
 import main.list.MyQueue;
 import main.list.MyStack;
+import main.pq.IntComparator;
 import main.pq.MyEntry;
 import main.pq.MyPQ;
 import main.queue.StackQueue;
@@ -30,23 +31,19 @@ public class Main {
 //        System.out.println("-------------------");
 //        Trees_4_2();
 //        Trees2_1(); //6주차 실습
-        PQ1_1();
+        PQ1_2();
     }
 
-    private static void PQ1_1() {
-        Comparator<MyEntry> comparator = new Comparator<MyEntry>() {
-            @Override
-            public int compare(MyEntry o1, MyEntry o2) {
-                return  (int)o1.getKey() - (int)o2.getKey();
-            }
-        };
-        MyPQ pq = new MyPQ(comparator);
-        pq.insert(10,2);
-        pq.insert(8, 3);
-        pq.insert(2, 5);
-        System.out.println("pq.removeMin() = " + pq.removeMin().getKey());
-        System.out.println("pq.removeMin() = " + pq.removeMin().getKey());
-        System.out.println("pq.removeMin() = " + pq.removeMin().getKey());
+    //8주차 실습 1-2
+    private static void PQ1_2() {
+        IntComparator c = new IntComparator();
+        MyPQ pq = new MyPQ(c);
+        pq.insert(30, null);
+        pq.insert(10, null);
+        pq.insert(20, null);
+        System.out.println((Integer) pq.removeMin().getKey());
+        System.out.println((Integer) pq.removeMin().getKey());
+        System.out.println((Integer) pq.removeMin().getKey());
     }
 
     //6주차 실습

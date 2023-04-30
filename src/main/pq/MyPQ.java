@@ -7,7 +7,7 @@ public class MyPQ {
 
     private int size;
     private ArrayList<MyEntry> pq;
-    private Comparator<MyEntry> comparator;
+    private Comparator<Object> comparator;
 
     public MyPQ(Comparator comp) {
         pq = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MyPQ {
         }
         else {
             for (MyEntry entry : pq) {
-                if (comparator.compare(entry, insertEntry) >= 0) {
+                if (comparator.compare(entry.getKey(), insertEntry.getKey()) >= 0) {
                     pq.add(idx, insertEntry);
                     break;
                 } else {
