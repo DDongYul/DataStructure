@@ -29,26 +29,51 @@ public class Main {
 //        PQ1_2();
 //        PQ2();
         HashTable_10_1();
+        System.out.println("-----------------실습 2----------------------");
+        HashTable_10_2();
     }
 
-    private static void HashTable_10_1() {
-        MyHashTable table = new MyHashTable(13);
-        table.put("2023", "1");
-        table.put("2022", "2");
-        table.put("2021", "3");
-        table.put("2020", "4");
-        table.put("2019", "5");
-        table.put("2018", "6");
-        table.put("2017", "7");
-        table.put("2016", "8");
-        table.put("2015", "9");
-        table.put("2014", "10");
-
+    //10주차 실습 2
+    private static void HashTable_10_2() {
+        MyHashTable table = new MyHashTable(13, (float) 0.9);
+        table.put("202311276", "1");
+        table.put("202211276", "2");
+        table.put("202111276", "3");
+        table.put("202011276", "4");
+        table.put("201911276", "5");
+        table.put("201811276", "6");
+        table.put("201711276", "7");
+        table.put("201611276", "8");
+        table.put("201511276", "9");
+        table.put("201411276", "10");
+        table.put("201311276", "11");
+        table.put("201211276", "12");
+        table.put("201111276", "13");
+        table.put("201011276", "14");
+        table.printHashTable();
+        table.put("200611276", "15");   //rehash 발생
+        table.put("200911276", "16");
+        table.put("200811276", "17");
+        table.put("200711276", "18");
         table.printHashTable();
     }
 
-    //10주차 실습
+    //10주차 실습 1
+    private static void HashTable_10_1() {
+        MyHashTable table = new MyHashTable(13);
+        table.put("202311276", "1");
+        table.put("202211276", "2");
+        table.put("202111276", "3");
+        table.put("202011276", "4");
+        table.put("201911276", "5");
+        table.put("201811276", "6");
+        table.put("201711276", "7");
+        table.put("201611276", "8");
+        table.put("201511276", "9");
+        table.put("201411276", "10");
 
+        table.printHashTable();
+    }
 
     //8주차 실습 1-2
     private static void PQ1_2() {

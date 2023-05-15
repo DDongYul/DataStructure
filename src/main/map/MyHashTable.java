@@ -5,8 +5,19 @@ import java.util.ArrayList;
 public class MyHashTable {
     private ArrayList bucketArray;
     private int bucketCapacity;
+    private float loadFactor;
 
     public MyHashTable(int initialCapacity){
+        bucketCapacity = initialCapacity;
+        bucketArray = new ArrayList(initialCapacity);
+        loadFactor = 1;
+        for(int i = 0; i<initialCapacity; i++){
+            bucketArray.add(i,new ArrayList<>());
+        }
+    }
+
+    public MyHashTable(int initialCapacity,float loadFactor){
+        this.loadFactor = loadFactor;
         bucketCapacity = initialCapacity;
         bucketArray = new ArrayList(initialCapacity);
         for(int i = 0; i<initialCapacity; i++){
@@ -19,10 +30,27 @@ public class MyHashTable {
         int hashValue = 0;
         int p = 1;
         for (int i=k.length()-1; i>=0; i--){
-            hashValue = (hashValue + (k.charAt(i)*p)) % bucketCapacity;
-            p = (p*base) % bucketCapacity;
+            hashValue = (hashValue + (k.charAt(i)*p)) % bucketArray.size();
+            p = (p*base) % bucketArray.size();
         }
         return hashValue;
+    }
+
+    private void rehash(int capacity) {
+        for(int i = 0; i<capacity; i++){
+            bucketArray.add(new ArrayList<>());
+        }
+    }
+
+    public float getLoadFactor(){
+        int cnt = 0;
+        for(int i = 0; i<bucketArray.size(); i++){
+            ArrayList lst = (ArrayList) bucketArray.get(i);
+            if (!lst.isEmpty()){
+                cnt +=1;
+            }
+        }
+        return (float) cnt/bucketArray.size();
     }
 
     public int size() {
@@ -47,6 +75,12 @@ public class MyHashTable {
         int idx = hashFunc(k);
         ArrayList lst = (ArrayList) bucketArray.get(idx);
         lst.add(student);
+        float lf = getLoadFactor();
+        if (lf>=loadFactor){
+            System.out.println("#####current loadFactor = " + lf + "#####");
+            System.out.println("############rehash hashtable!################");
+            rehash(bucketArray.size());
+        }
         return k;
     }
 
