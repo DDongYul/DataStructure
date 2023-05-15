@@ -2,6 +2,8 @@ package main;
 
 import main.list.MyQueue;
 import main.list.MyStack;
+import main.map.MyHashTable;
+import main.map.StudentInfo;
 import main.pq.*;
 import main.tree.MyBinNode;
 import main.tree.MyBinTree;
@@ -24,9 +26,29 @@ public class Main {
 //        System.out.println("-------------------");
 //        Trees_4_2();
 ////        Trees2_1(); //6주차 실습
-        PQ1_2();
-        PQ2();
+//        PQ1_2();
+//        PQ2();
+        HashTable_10_1();
     }
+
+    private static void HashTable_10_1() {
+        MyHashTable table = new MyHashTable(13);
+        table.put("2023", "1");
+        table.put("2022", "2");
+        table.put("2021", "3");
+        table.put("2020", "4");
+        table.put("2019", "5");
+        table.put("2018", "6");
+        table.put("2017", "7");
+        table.put("2016", "8");
+        table.put("2015", "9");
+        table.put("2014", "10");
+
+        table.printHashTable();
+    }
+
+    //10주차 실습
+
 
     //8주차 실습 1-2
     private static void PQ1_2() {
