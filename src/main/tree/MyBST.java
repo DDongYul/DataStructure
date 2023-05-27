@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class MyBST extends MyBinTree{
     ArrayList<MyBinNode> inOrderResult = new ArrayList<MyBinNode>();
-    MyBST() {
+
+    public MyBST() {
         super();
     }
-    MyBST(Object e){
+
+    public MyBST(Object e){
         super(e);
     }
 
@@ -87,6 +89,7 @@ public class MyBST extends MyBinTree{
             searchNode.setElement(k);
             searchNode.setLeft(new MyBinNode());
             searchNode.setRight(new MyBinNode());
+            insertLeft((MyBinNode) searchNode.parent(), k);
             return searchNode;
         }
         else{
@@ -104,6 +107,39 @@ public class MyBST extends MyBinTree{
     }
 
     public Object remove(Object k) {
-
+        MyBinNode searchNode = (MyBinNode) find((int) k);
+        if(searchNode == null){
+            return null;
+        }
+        else{
+            if (isExternal(searchNode.left()) && isExternal(searchNode.right())){
+                MyBinNode parent = (MyBinNode) searchNode.parent();
+                if (searchNode == parent.left()) {
+                    parent.setLeft(new MyBinNode());
+                }
+                else{
+                    parent.setRight(new MyBinNode());
+                }
+                return searchNode;
+            }
+            else if(isExternal(searchNode.left())){
+                MyBinNode parent = (MyBinNode) searchNode.parent();
+                MyBinNode nextNode = nextNode(searchNode);
+                nextNode.setParent(parent);
+                parent.setLeft(nextNode);
+            }
+            else if(isExternal(searchNode.right())){
+                MyBinNode parent = (MyBinNode) searchNode.parent();
+                MyBinNode nextNode = nextNode(searchNode);
+                nextNode.setParent(parent);
+                parent.setRight(nextNode);
+            }
+            else{
+                MyBinNode parent = (MyBinNode) searchNode.parent();
+                MyBinNode nextNode = nextNode(searchNode);
+                nextNode.setParent(parent);
+            }
+            return searchNode;
+        }
     }
 }
