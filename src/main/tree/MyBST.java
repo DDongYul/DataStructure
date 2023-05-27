@@ -3,6 +3,7 @@ package main.tree;
 import java.util.ArrayList;
 
 public class MyBST extends MyBinTree{
+    ArrayList<MyBinNode> inOrderResult = new ArrayList<MyBinNode>();
     MyBST() {
         super();
     }
@@ -11,7 +12,36 @@ public class MyBST extends MyBinTree{
     }
 
     private MyBinNode nextNode(MyBinNode v) {
+        inOrder(root());
+        int idx = 0;
+        for (MyBinNode node : inOrderResult) {
+            if(node == v){
+                break;
+            }
+            else {
+                idx+=1;
+            }
+        }
+        if (idx<= inOrderResult.size()-2){
+            return inOrderResult.get(idx+1);
+        }
+        return null;
+    }
 
+    private void inOrder(MyBinNode node){
+        if(isExternal(node.left()) && isExternal(node.right())){
+            inOrderResult.add(node);
+        }
+        else if(isExternal(node.left())){
+            inOrderResult.add(node);
+            inOrder(node.right());
+        }
+        else if(isExternal(node.right())){
+            inOrder(node.left());
+        }
+        else{
+            inOrder(node.left());
+        }
     }
 
     public Object find(Object k) {
