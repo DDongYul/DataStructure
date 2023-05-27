@@ -15,13 +15,16 @@ public class MyBST extends MyBinTree{
     }
 
     public Object find(Object k) {
-        MyBinNode result = search((int) k, root());
-        return result;
+        MyBinNode findNode = search((int) k, root());
+        if (isExternal(findNode)){
+            return null;
+        }
+        return findNode;
     }
 
     private MyBinNode search(int k, MyBinNode v) {
         if (isExternal(v)) {
-            return null;
+            return v;
         }
         if (k == (int) v.element()) {
             return v;
@@ -30,7 +33,7 @@ public class MyBST extends MyBinTree{
             search(k, v.right());
         }
         else if(k< (int) v.element()) {
-            search(k,v.right());
+            search(k,v.left());
         }
         return null;
     }
@@ -38,9 +41,9 @@ public class MyBST extends MyBinTree{
     public ArrayList findAll(Object k) {
         ArrayList<MyBinNode> result = new ArrayList<>();
         MyBinNode curr = root();
-        while (curr != null) {
+        while (!isExternal(curr)) {
             curr =(MyBinNode) find((int)k);
-            if (curr == null) {
+            if (isExternal(curr)) {
                 break;
             }
             result.add(curr);
@@ -48,6 +51,29 @@ public class MyBST extends MyBinTree{
         return result;
     }
 
-    public Object insert(Object k) {  }
-    public Object remove(Object k) {  }
+    public Object insert(Object k) {
+        MyBinNode searchNode = search((int) k, root());
+        if (isExternal(searchNode)){
+            searchNode.setElement(k);
+            searchNode.setLeft(new MyBinNode());
+            searchNode.setRight(new MyBinNode());
+            return searchNode;
+        }
+        else{
+            while (!isExternal(searchNode)){
+                MyBinNode searchNode2 = search((int) k, searchNode.left());
+                if (isExternal(searchNode2)){
+                    searchNode.setElement(k);
+                    searchNode.setLeft(new MyBinNode());
+                    searchNode.setRight(new MyBinNode());
+                    return searchNode;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Object remove(Object k) {
+
+    }
 }
