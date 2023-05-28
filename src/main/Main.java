@@ -5,10 +5,7 @@ import main.list.MyStack;
 import main.map.MyHashTable;
 import main.map.StudentInfo;
 import main.pq.*;
-import main.tree.MyBinNode;
-import main.tree.MyBinTree;
-import main.tree.MyNode;
-import main.tree.MyTree;
+import main.tree.*;
 
 import java.awt.*;
 
@@ -28,9 +25,33 @@ public class Main {
 ////        Trees2_1(); //6주차 실습
 //        PQ1_2();
 //        PQ2();
-        HashTable_10_1();
-        System.out.println("-----------------실습 2----------------------");
-        HashTable_10_2();
+//        HashTable_10_1();
+//        System.out.println("-----------------실습 2----------------------");
+//        HashTable_10_2();
+          SearchTree();
+    }
+
+    private static void SearchTree() {
+        MyBST tree = new MyBST(6);
+        tree.insert(1);
+        tree.insert(2);
+        tree.insert(4);
+        tree.insert(8);
+        tree.insert(9);
+        tree.insert(9);
+        System.out.println("tree.find(8) = " + tree.find(8));
+        System.out.println("tree.find(3) = " + tree.find(3));
+        System.out.println("tree.insert(3) = " + tree.insert(3));
+        System.out.println("tree.insert(7) = " + tree.insert(7));
+        System.out.println("tree.insert(9) = " + tree.insert(9));
+        System.out.println("tree.remove(1) = " + tree.remove(1));
+        System.out.println("tree.remove(4) = " + tree.remove(4));
+        System.out.println("tree.remove(6) = " + tree.remove(6));
+        System.out.println("tree.find(3) = " + tree.find(3));
+        System.out.println("tree.find(6) = " + tree.find(6));
+        System.out.println("tree.findAll(6) = " + tree.findAll(9));
+
+        tree.printInorder(tree.root());
     }
 
     //10주차 실습 2

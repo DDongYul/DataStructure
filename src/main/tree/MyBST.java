@@ -10,10 +10,13 @@ public class MyBST extends MyBinTree{
     }
 
     public MyBST(Object e){
-        super(e);
+        addRoot(e);
+        root().setLeft(new MyBinNode());
+        root().setRight(new MyBinNode());
     }
 
     private MyBinNode nextNode(MyBinNode v) {
+        inOrderResult.clear();
         inOrder(root());
         int idx = 0;
         for (MyBinNode node : inOrderResult) {
@@ -30,20 +33,13 @@ public class MyBST extends MyBinTree{
         return null;
     }
 
-    private void inOrder(MyBinNode node){
-        if(isExternal(node.left()) && isExternal(node.right())){
-            inOrderResult.add(node);
+    private void inOrder(MyBinNode v){
+        if(isExternal(v)){
+            return;
         }
-        else if(isExternal(node.left())){
-            inOrderResult.add(node);
-            inOrder(node.right());
-        }
-        else if(isExternal(node.right())){
-            inOrder(node.left());
-        }
-        else{
-            inOrder(node.left());
-        }
+        inOrder(v.left());
+        inOrderResult.add(v);
+        inOrder(v.right());
     }
 
     public Object find(Object k) {
@@ -61,85 +57,87 @@ public class MyBST extends MyBinTree{
         if (k == (int) v.element()) {
             return v;
         }
-        if (k > (int) v.element()) {
-            search(k, v.right());
+        else if (k > (int) v.element()) {
+            return search(k, v.right());
         }
         else if(k< (int) v.element()) {
-            search(k,v.left());
+            return search(k,v.left());
         }
         return null;
     }
 
     public ArrayList findAll(Object k) {
         ArrayList<MyBinNode> result = new ArrayList<>();
-        MyBinNode curr = root();
-        while (!isExternal(curr)) {
-            curr =(MyBinNode) find((int)k);
-            if (isExternal(curr)) {
-                break;
-            }
+        MyBinNode curr = search((int) k,root());
+        while (!isExternal(curr)){
             result.add(curr);
+            curr = search((int) k, curr.left());
         }
         return result;
     }
 
     public Object insert(Object k) {
         MyBinNode searchNode = search((int) k, root());
-        if (isExternal(searchNode)){
-            searchNode.setElement(k);
-            searchNode.setLeft(new MyBinNode());
-            searchNode.setRight(new MyBinNode());
-            insertLeft((MyBinNode) searchNode.parent(), k);
-            return searchNode;
+        if(!isExternal(searchNode)){
+            searchNode = search((int) k, searchNode.left());
+        }
+        MyBinNode parent = (MyBinNode) searchNode.parent();
+        if (isLeftChild(searchNode)){
+            parent.setLeft(searchNode);
         }
         else{
-            while (!isExternal(searchNode)){
-                MyBinNode searchNode2 = search((int) k, searchNode.left());
-                if (isExternal(searchNode2)){
-                    searchNode.setElement(k);
-                    searchNode.setLeft(new MyBinNode());
-                    searchNode.setRight(new MyBinNode());
-                    return searchNode;
-                }
-            }
+            parent.setRight(searchNode);
         }
-        return null;
+        searchNode.setElement(k);
+        searchNode.setLeft(new MyBinNode());
+        searchNode.setRight(new MyBinNode());
+        size++;
+        return searchNode;
+    }
+
+    public boolean isLeftChild(MyBinNode v){
+        MyBinNode parent = (MyBinNode) v.parent();
+        if(v == parent.left()){
+            return true;
+        }
+        return false;
     }
 
     public Object remove(Object k) {
-        MyBinNode searchNode = (MyBinNode) find((int) k);
-        if(searchNode == null){
+//        ArrayList list = findAll(k);
+        MyBinNode searchNode = search((int) k, root());
+        if (isExternal(searchNode)) {
             return null;
         }
-        else{
-            if (isExternal(searchNode.left()) && isExternal(searchNode.right())){
-                MyBinNode parent = (MyBinNode) searchNode.parent();
-                if (searchNode == parent.left()) {
-                    parent.setLeft(new MyBinNode());
-                }
-                else{
-                    parent.setRight(new MyBinNode());
-                }
-                return searchNode;
-            }
-            else if(isExternal(searchNode.left())){
-                MyBinNode parent = (MyBinNode) searchNode.parent();
-                MyBinNode nextNode = nextNode(searchNode);
-                nextNode.setParent(parent);
-                parent.setLeft(nextNode);
-            }
-            else if(isExternal(searchNode.right())){
-                MyBinNode parent = (MyBinNode) searchNode.parent();
-                MyBinNode nextNode = nextNode(searchNode);
-                nextNode.setParent(parent);
-                parent.setRight(nextNode);
-            }
-            else{
-                MyBinNode parent = (MyBinNode) searchNode.parent();
-                MyBinNode nextNode = nextNode(searchNode);
-                nextNode.setParent(parent);
+        if (searchNode == root()) {
+            this.addRoot(root().left());
+        }
+        MyBinNode parent = (MyBinNode) searchNode.parent();
+        if (isExternal(searchNode.left()) && isExternal(searchNode.right())) {       //자식이 없는 노드
+            if (isLeftChild(searchNode)) {
+                parent.setLeft(new MyBinNode());
+            } else {
+                parent.setRight(new MyBinNode());
             }
             return searchNode;
+        } else {
+            MyBinNode nextNode = nextNode(searchNode);
+            nextNode.setParent(parent);
+            if (isLeftChild(searchNode)) {
+                parent.setLeft(nextNode);
+            } else {
+                parent.setRight(nextNode);
+            }
         }
+        return searchNode;
+    }
+
+    public void printInorder(MyBinNode v){
+        if(isExternal(v)){
+            return;
+        }
+        printInorder(v.left());
+        System.out.printf(v.element() + " ");
+        printInorder(v.right());
     }
 }
