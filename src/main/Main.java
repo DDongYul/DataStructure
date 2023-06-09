@@ -5,9 +5,12 @@ import main.list.MyStack;
 import main.map.MyHashTable;
 import main.map.StudentInfo;
 import main.pq.*;
+import main.sort.MyMergeSort;
 import main.tree.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,7 +31,25 @@ public class Main {
 //        HashTable_10_1();
 //        System.out.println("-----------------실습 2----------------------");
 //        HashTable_10_2();
-          SearchTree();
+//          SearchTree();
+          MergeSort();
+    }
+
+    private static void MergeSort() {
+        Comparator c = new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+        };
+
+        MyMergeSort myMergeSort = new MyMergeSort(c);
+
+        ArrayList arr = new ArrayList();
+        for(int i =10; i>0; i--){
+            arr.add(i);
+        }
+        myMergeSort.sort(arr);
     }
 
     private static void SearchTree() {
