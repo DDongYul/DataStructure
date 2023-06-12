@@ -28,10 +28,9 @@ public class MyMergeSort {
                 int start;
                 int end;
                 int mid;
-
-                if(i+cnt*2-1>=l.size()){
-                    start = i;      //16
-                    end = l.size()-1;   //19
+                if(i+cnt*2>=l.size()){
+                    start = i;
+                    end = l.size()-1;
                     mid = (end-start+1)/2 + start;
                 }
                 else{

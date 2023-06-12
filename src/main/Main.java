@@ -11,6 +11,7 @@ import main.tree.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class Main {
     public static void main(String[] args) {
@@ -54,6 +55,33 @@ public class Main {
 
         System.out.println("정렬 전= " + arr);
         myMergeSort.sort(arr);
+
+        System.out.println("----------실습2 2번-----------");
+        MyMergeSort myMergeSort2 = new MyMergeSort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if(o1.compareTo(o2)<0)
+                    return 1;
+                else
+                    return 0;
+            }
+        });
+
+        String str = "In computer science, a data structure is a data organization, management, and storage format that enables efficient access and modification. More precisely, a data structure is a collection of data values, the relationships among them, and the functions or operations that can be applied to the data.";
+        String[] split_str = str.split(" ");
+        for(int i = 0; i<split_str.length; i++){
+            split_str[i] = split_str[i].toLowerCase();
+            split_str[i] = split_str[i].replace(",","");
+            split_str[i] = split_str[i].replace(".","");
+        }
+
+        ArrayList<String> str_arr = new ArrayList<>();
+        for(int i = 0; i<split_str.length; i++){
+            str_arr.add(split_str[i]);
+        }
+
+        System.out.println("정렬 전 = " + str_arr);
+        myMergeSort2.sort(str_arr);
     }
 
     private static void SearchTree() {
