@@ -2,7 +2,6 @@ package main.sort;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.lang.Math.*;
 
 public class MyMergeSort {
     private ArrayList L1;
@@ -28,21 +27,24 @@ public class MyMergeSort {
             for(int i = 0; i<l.size(); i+=cnt*2){
                 int start;
                 int end;
+                int mid;
 
                 if(i+cnt*2-1>=l.size()){
-                    start = cnt*2;
-                    end = l.size()-1;
+                    start = i;      //16
+                    end = l.size()-1;   //19
+                    mid = (end-start+1)/2 + start;
                 }
                 else{
                     start = i;
                     end = i+cnt*2-1;
+                    mid = (end-start+1)/2 + start;
                 }
 
                 if (flag){
-                    merge(L1,L2,start,end);
+                    merge(L1,L2,start,end,mid);
                 }
                 else{
-                    merge(L2,L1,start,end);
+                    merge(L2,L1,start,end,mid);
                 }
             }
             if(flag) {
@@ -57,15 +59,20 @@ public class MyMergeSort {
             cnt = (int) Math.pow(2,d);
         }
 
-
+        if (flag){
+            merge(L1,L2,0,l.size()-1,(int) cnt/2);
+            System.out.printf("정렬 후 =  ");
+            System.out.println(L2);
+        }
+        else{
+            merge(L2,L1,0,l.size()-1, (int) cnt/2);
+            System.out.printf("정렬 후 =  ");
+            System.out.println(L1);
+        }
     }
 
-    public void merge(ArrayList inputArr, ArrayList outputArr, int start, int end){
-        System.out.println("start = " + start);
-        System.out.println("end = " + end);
-
+    public void merge(ArrayList inputArr, ArrayList outputArr, int start, int end, int mid){
         int left = start;
-        int mid = (end-start+1)/2 + start;
         int right = mid;
         while (left<mid && right<=end){
             int rst = comp.compare(inputArr.get(left),inputArr.get(right));
@@ -89,19 +96,10 @@ public class MyMergeSort {
             outputArr.add(inputArr.get(right));
             right++;
         }
-        print(L1);
-        print(L2);
     }
 
     public Comparator setComparator(Comparator c) {
         comp = c;
         return comp;
-    }
-
-    public void print(ArrayList l) {
-        for(int i=0; i<l.size(); i++) {
-            System.out.print(l.get(i) + " ");
-        }
-        System.out.println();
     }
 }

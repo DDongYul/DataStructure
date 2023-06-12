@@ -36,19 +36,23 @@ public class Main {
     }
 
     private static void MergeSort() {
-        Comparator c = new Comparator() {
+        System.out.println("----------실습2 1번-----------");
+        MyMergeSort myMergeSort = new MyMergeSort(new Comparator<Integer>() {
             @Override
-            public int compare(Object o1, Object o2) {
-                return 0;
+            public int compare(Integer o1, Integer o2) {
+                if(o1 < o2)
+                    return 1;
+                else
+                    return 0;
             }
-        };
-
-        MyMergeSort myMergeSort = new MyMergeSort(c);
+        });
 
         ArrayList arr = new ArrayList();
-        for(int i =10; i>0; i--){
-            arr.add(i);
-        }
+
+        for(int i = 0; i < 20; i++)
+            arr.add((int)(Math.random() * 100) + 1);
+
+        System.out.println("정렬 전= " + arr);
         myMergeSort.sort(arr);
     }
 
